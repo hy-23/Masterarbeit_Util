@@ -12,18 +12,18 @@ spec = parser.parse_args()
 if spec.platform == 'nt':
     data_file_path = """{
     "img_list": "I:\\\\00.masterarbeit_dataset\\\\janelia-bgc-template-like-vs_code.txt",
-    "val_list": "I:\\\\00.masterarbeit_dataset\\\\val_janelia-bgc-template-like-vs_code.txt",
+    "val_list": "",
     "atlas": "I:\\\\00.masterarbeit_dataset\\\\00.atlas\\\\np-scaled-channel\\\\npz\\\\np_atlas_scaled.npz",
-    "model_dir": "I:\\\\03.masterarbeit_out\\\\model_vscode_weighted_mse","""
+    "model_dir": "I:\\\\03.masterarbeit_out\\\\xxxxxxxxxx","""
 elif spec.platform == 'posix':
     data_file_path = """{
-    "img_list": "/work/scratch/yogeshappa/00.masterarbeit_dataset/06.condor/janelia-bgc-template-like-condor.txt",
-    "val_list": "/work/scratch/yogeshappa/00.masterarbeit_dataset/06.condor/janelia-bgc-template-like-condor-val.txt",
+    "img_list": "/work/scratch/yogeshappa/00.masterarbeit_dataset/06.condor/curated.txt",
+    "val_list": "",
     "atlas": "/work/scratch/yogeshappa/00.masterarbeit_dataset/00.atlas/np-scaled-channel/npz/np_atlas_scaled.npz",
-    "model_dir": "/work/scratch/yogeshappa/03.masterarbeit_out/model_vscode_weighted_mse_condor","""
+    "model_dir": "/work/scratch/yogeshappa/03.masterarbeit_out/xxxxxxxxxx","""
 
 data_parameters = """
-    "epochs": 100,
+    "epochs": 40,
     "steps_per_epoch": 290,
     "gpu": 0,
     "batch_size": 1,
@@ -40,7 +40,7 @@ data_parameters = """
     "multichannel": false,
     "use_probs": false,
     "bidir": false,
-    "lambda_weight": 0.03,
+    "lambda_weight": 0.5,
     "img_prefix": "",
     "img_suffix": "",
     "load_weights": "",
@@ -53,7 +53,7 @@ data_parameters = """
 
 # Writing to sample.json
 if spec.platform == 'nt':
-    with open("Y:\\repo\Masterarbeit_Util\src\00.config_repo\config_repo.json", "w") as outfile:
+    with open("Y:\\repo\Masterarbeit_Util\src\\00.config_repo\config_repo.json", "w") as outfile:
         outfile.write(data_file_path)
         outfile.write(data_parameters)
 elif spec.platform == 'posix':
