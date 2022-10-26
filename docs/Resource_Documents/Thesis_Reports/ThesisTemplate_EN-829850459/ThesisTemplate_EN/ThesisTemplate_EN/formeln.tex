@@ -1,0 +1,181 @@
+\chapter{Formulas}
+\label{formeln}
+\thispagestyle{empty}
+
+Viele, viele bunte Formeln....
+
+
+\section{FFT-Algorithmus}
+
+Am  Beispiel der 1D-DFT soll eine Variante des FFT-Algorithmus
+an  dieser  Stelle  beschrieben werden: Basis-2-Algorithmus
+mit Zerlegung im Zeitraum (engl. {\em decimation in time 
+radix-2  algorithm}) \cite{Aach2005}.
+
+ Zun"achst wird die Fouriertransformierte wie folgt umgeschrieben:
+\begin{equation} 
+ \label{eq21}
+F(u) = \frac{1}{N} \sum \limits_{x=0}^{N-1}f(x) e^{ -j 2 \pi \frac{u x}{N} }
+  = \frac{1}{N} \sum \limits_{x=0}^{N-1}f(x) W_{N}^{ux}
+\textrm{,}
+\end{equation}
+\begin{equation}
+\label{eq22}
+\textrm{mit  }
+  W_{N} = e^{ -j 2 \pi \frac{1}{N} }
+\textrm{  und  $u=0,1,\dots,N-1$.}
+\end{equation}
+
+Unter  der Annahme, da"s $N$ eine Potenz zur Basis $2$ ist  und
+$n$ und $L$ zur Menge der nat"urlichen Zahlen geh"oren, l"a"st sich
+$N$ ausdr"ucken durch
+\begin{equation}
+\label{eq23}
+N=2^{n}=2L
+\textrm{.}
+\end{equation}
+
+Durch Substitution von Gl. \ref{eq23} in Gl. \ref{eq21} ergibt sich
+\begin{align} 
+\label{eq24}
+F(u) &= \frac{1}{2L} \sum \limits_{x=0}^{2L-1}f(x) W_{2L}^{ux} \nonumber \\
+  &= \frac{1}{2} \left [ \frac{1}{L} \sum \limits_{x=0}^{L-1}f(2x) W_{2L}^{u(2x)} +
+     \frac{1}{L} \sum \limits_{x=0}^{L-1}f(2x+1) W_{2L}^{u(2x+1)} \right ]
+\textrm{,}
+\end{align}
+und mit $W_{2L}^{2ux} = W_{L}^{ux}$ (aus Gl. \ref{eq22}) folgt schlie"slich
+\begin{equation}
+\label{eq25}
+F(u) = \frac{1}{2} \left [ \frac{1}{L} \sum \limits_{x=0}^{L-1}f(2x) W_{L}^{ux}+
+     \frac{1}{L} \sum \limits_{x=0}^{L-1}f(2x+1) W_{L}^{ux} W_{2L}^{u} \right ]
+\textrm{.}
+\end{equation}
+
+In einem  n"achsten Schritt definiert man f"ur gerade und ungerade
+Funk\-tions\-werte je eine Funktion $F(u)$
+\begin{equation} 
+\label{eq26}
+F_{gerade}(u) = \frac{1}{L} \sum \limits_{x=0}^{L-1}f(2x) W_{L}^{ux} 
+\textrm{ und}
+\end{equation}
+\begin{equation} 
+\label{eq27}
+F_{ungerade}(u) = \frac{1}{L} \sum \limits_{x=0}^{L-1}f(2x+1) W_{L}^{ux}
+\textrm{ f"ur $u=0,1,\dots,L-1$.}
+\end{equation}
+Durch  Einsetzen  von Gl. \ref{eq26} und Gl. \ref{eq27}  reduziert  sich
+Gl. \ref{eq25} zu
+\begin{equation}
+\label{eq28}
+F(u) = \frac{1}{2} \left [ F_{gerade}(u) + F_{ungerade}(u) W_{2L}^{u} \right ]
+\textrm{.}
+\end{equation}
+Mit $W_{L}^{u+L} = W_{L}^{u}$, $W_{2L}^{u+L} = -W_{2L}^{u}$ und den Gl.~\ref{eq25}
+bis Gl.~\ref{eq28} ergibt sich
+\begin{equation}
+\label{eq29}
+F(u+L) = \frac{1}{2} \left [ F_{gerade}(u) - F_{ungerade}(u) W_{2L}^{u} \right ]
+\textrm{.}
+\end{equation}
+
+Somit  besteht  der  FFT-Algorithmus  in  der  sukzessiven
+Anwendung  der Halbierung der diskreten Funktion $F(u)$.  Mit
+Gl.  \ref{eq28} und Gl. \ref{eq29} liegen $N/2$-Punkt-Transformationen vor.
+Diese  lassen  sich  wiederum in zwei Transformationen  der
+halben  L"ange  aufteilen. Man erh"alt "ahnliche  Gleichungen,
+nur  mit  dem Unterschied, da"s die Phasenverschiebung  sich
+verdoppelt  hat.  Die  Halbierung mu"s konsequenterweise  f"ur  beide
+Funktionen, gerade und ungerade, durchgef"uhrt werden.
+
+Im letzten Schritt erh"alt man f"ur $\tilde{u}=0$ :
+\begin{align}
+F(0) &= \frac{1}{2} \left [ \tilde{F}_{gerade}(0) + \tilde{F}_{ungerade}(0)
+         W_{2\tilde{L}}^{0} \right ] \nonumber \\
+     &= f(0)+f(1)
+\textrm{ und }\\
+F(0+\tilde{L}) &= F(1) = \frac{1}{2} \left [ \tilde{F}_{gerade}(0) - 
+         \tilde{F}_{ungerade}(0) W_{2\tilde{L}}^{0} \right ] \nonumber \\
+     &=& f(0)-f(1),
+\end{align}
+da $W=1$ und $\tilde{L}=1$ sind.
+
+Am  Beispiel f"ur  $N=4$ soll dies demonstriert werden. Nach  Gl.~\ref{eq28}
+und Gl.~\ref{eq29} erh"alt man ($L=2$)
+\begin{align}
+\label{eq210}
+F(0) &= \frac{1}{2} \left [ F_{gerade}(0) + F_{ungerade}(0) W_{4}^{0} \right ]
+\textrm{,} \\
+F(2) &= \frac{1}{2} \left [ F_{gerade}(0) - F_{ungerade}(0) W_{4}^{0} \right ]
+\textrm{,} \\
+F(1) &= \frac{1}{2} \left [ F_{gerade}(0) + F_{ungerade}(0) W_{4}^{1} \right ]
+\textrm{,} \\
+F(3) &= \frac{1}{2} \left [ F_{gerade}(0) - F_{ungerade}(0) W_{4}^{1} \right ]
+\label{eq211}
+\textrm{.}
+\end{align}
+Mit Gl. \ref{eq22} gilt
+\begin{equation}
+  W_{4}^{0} = e^{ -j 2 \pi \frac{0}{4} } = 1
+\textrm{ und }
+  W_{4}^{1} = e^{ -j 2 \pi \frac{1}{4} } = -j
+\textrm{.}
+\end{equation}
+Weiterhin nach \ref{eq26} und Gl. \ref{eq27}f"ur $u=0,1$
+\begin{align}
+F_{gerade}(0) &= \frac{1}{2} \sum \limits_{x=0}^{1}f(2x) W_{2}^{0}  \nonumber \\
+  &= \frac{1}{2} \left [ f(0)W_{2}^{0} + f(2)W_{2}^{0} \right ]
+  = \frac{1}{2} \left [ f(0) + f(2) \right ]
+\textrm{,}\\
+F_{ungerade}(0) &= \frac{1}{2} \sum \limits_{x=0}^{1}f(2x+1) W_{2}^{0} \nonumber \\
+  &= \frac{1}{2} \left [ f(1)W_{2}^{0} + f(3)W_{2}^{0} \right ]
+  = \frac{1}{2} \left [ f(1) + f(3) \right ]
+\textrm{,}\\
+F_{gerade}(1) &= \frac{1}{2} \sum \limits_{x=0}^{1}f(2x) W_{2}^{x} \nonumber \\
+  &= \frac{1}{2} \left [ f(0)W_{2}^{0} + f(2)W_{2}^{1} \right ]
+  = \frac{1}{2} \left [ f(0) - f(2) \right ]
+\textrm{,}\\
+F_{ungerade}(1) &= \frac{1}{2} \sum \limits_{x=0}^{1}f(2x+1) W_{2}^{x} \nonumber \\
+  &= \frac{1}{2} \left [ f(1)W_{2}^{0} + f(3)W_{2}^{1} \right ]
+  = \frac{1}{2} \left [ f(1) - f(3) \right ]
+\textrm{,}
+\end{align}
+mit $W_{2}^{0} = 1$  und  $W_{2}^{1} = -1$.
+Eingesetzt in Gl. \ref{eq210} bis Gl. \ref{eq211} folgt  das Ergebnis
+\begin{align}
+F(0) &= \frac{1}{2} 
+  \left \{ 
+    \frac{1}{2} \left [ f(0) + f(2) \right ] + \frac{1}{2} \left [ f(1) + f(3) \right ]
+  \right \} \nonumber \\
+     &= \frac{1}{4}
+  \left \{ 
+    \left [ f(0) + f(2) \right ] + \left [ f(1) + f(3) \right ]
+  \right \}
+\textrm{,}\\
+F(2) &= \frac{1}{2} 
+  \left \{ 
+    \frac{1}{2} \left [ f(0) + f(2) \right ] - \frac{1}{2} \left [ f(1) + f(3) \right ]
+  \right \} \nonumber \\
+     &= \frac{1}{4}
+  \left \{ 
+    \left [ f(0) + f(2) \right ] - \left [ f(1) + f(3) \right ]
+  \right \}
+\textrm{,}\\
+F(1) &= \frac{1}{2} 
+  \left \{ 
+    \frac{1}{2} \left [ f(0) - f(2) \right ] + \frac{1}{2} \left [ f(1) - f(3) \right ] (-j)
+  \right \} \nonumber \\
+     &= \frac{1}{4}
+  \left \{ 
+    \left [ f(0) - f(2) \right ] - j \left [ f(1) - f(3) \right ]
+  \right \}
+\textrm{,}\\
+F(3) &= \frac{1}{2} 
+  \left \{ 
+    \frac{1}{2} \left [ f(0) - f(2) \right ] - \frac{1}{2} \left [ f(1) - f(3) \right ] (-j)
+  \right \} \nonumber \\
+     &= \frac{1}{4}
+  \left \{ 
+    \left [ f(0) - f(2) \right ] + j \left [ f(1) - f(3) \right ]
+  \right \}
+\textrm{.}
+\end{align}

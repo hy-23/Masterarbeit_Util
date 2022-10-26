@@ -1,0 +1,22 @@
+{
+    "img_list": "I:\\00.masterarbeit_dataset\\vscode_default.txt",
+    "atlas_file": "I:\\00.masterarbeit_dataset\\00.atlas\\np-scaled-channel\\npz\\np_atlas_scaled.npz",
+    "model_dir": "I:\\03.masterarbeit_out\\vscode_landmark_distance",
+    "seg_suffix": "_points.npz",
+    "seg_prefix": "",
+    "epochs": 100,
+    "steps_per_epoch": 65,
+    "gpu": 0,
+    "initial_epoch": 0,
+    "int_steps": 0,
+    "int_downsize": 2,
+    "image_loss": "mse",
+    "lr": 1e-3,
+    "enc": [16, 32, 32, 32, 32, 32],
+    "dec": [32, 32, 32, 32, 32, 32, 32, 16, 16],
+    "max_pool": [[2,2,1], [2,2,1], [2,2,2], [2,2,2], [2,2,2], [2,2,2]],
+    "grad_loss_weight": 0.03,
+    "load_weights": "",
+    "n_gradients": 10,
+    "_comment": ""
+}

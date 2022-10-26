@@ -1,0 +1,249 @@
+\documentclass[12pt,a4paper,titlepage,twoside,numbers=noenddot,BCOR10mm]{scrreprt}
+% BCOR10mm sorgt für Bindungsrand 10
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% packages
+
+% Kodierung der Eingabedateien, UTF8 erlaubt direkte Eingabe von Umlauten etc.
+% Dateien sollten unter Windows als UTF-8 ohne BOM (byte order marker)
+% gespeichert werde.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % richtiger Umgang / Silbentrennung von Wörtern, die Umlaute enthalten
+% Neue deutsche Rechtschreibung
+\usepackage[english]{babel}
+\usepackage{lmodern}
+
+% Index
+\usepackage{makeidx} 
+
+% Mathepaket für Befehle wie z.B. "gather" und vieles andere unabdingbar!
+\usepackage{amsmath}
+% Mathesymbole, z.B. für Mengensymbol für reelle Zahlen
+\usepackage{amssymb} 
+
+% Korrekte horizontale Trennstriche in Tabellen
+\usepackage{booktabs}
+% Spalten am Dezimalpunkt ausrichten
+\usepackage{dcolumn}
+
+% Bilder einbinden
+\usepackage{graphicx}
+% mehrere Bilder in einer Abbildung
+\usepackage{subfig}
+
+% Schönere Bildunterschriften
+\captionsetup{format=hang,margin=10pt,font=small,labelfont=bf,labelsep=colon}
+% Format für Caption von fortgesetzten Floats: "Abbildung ##.## (continued): ..."
+\DeclareCaptionLabelFormat{continued}{#1~#2 (Fortsetzung)}
+\captionsetup[ContinuedFloat]{labelformat=continued}
+
+% Referenzen auf subfloats im Format Abb. 1 (b)
+\captionsetup[subfloat]{labelformat=simple,listofformat=subsimple}
+\def\thesubfigure{(\alph{subfigure})}
+
+% Wenn z.B. mehrere Zitate in einer Klammer stehen, werden die Nummern sequentiell angeordnet
+\usepackage{cite} 
+% dt. Literaturverzeichnis
+\usepackage{bibgerm}
+
+% Hyperlinks auf URLs
+\usepackage{url}
+
+% Farbdefinitionen ermöglichen
+\usepackage{color}
+
+% Einheiten korrekt setzen, Doku: http://ctan.org/pkg/siunitx
+% z. B. \SI{3.5}{\milli\meter} (siehe 1.1.1 im Beispieldokument)
+\usepackage{siunitx} 
+
+% fügt den 'X' für den Tabellen Aufbau hinzu. Die Spalten sind flexibel in
+% ihrer Breite
+%\usepackage{tabularx}
+%\usepackage{multirow} %Tabellen Spalten über mehrere Spalten
+
+% Hyperlinks in kompilierten PDF Dokumenten, vor dem Drucken die Linkfarbe
+% anpassen!
+\usepackage[pdftex,plainpages=false,pdfpagelabels,colorlinks=true,
+            linkcolor=red, citecolor=blue]{hyperref}
+            
+% Titelseitenpaket (auswählen: MIT oder OHNE RWTH-Logo)
+% LfB-Titelseite OHNE RWTH-Logo
+%\usepackage{lfbbama}
+% LfB-Titelseite MIT RWTH-Logo (erfordert unterschriebene Einverständniserklärung)
+\usepackage{lfbbamarwth_EN}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr} % fancy header
+%Definition des styles "fancyplain". Dieser wird überall dort verwendet wo \pagestyle{fancy} oder
+%\pagestyle{fancyplain} aufgerufen wird. fancyplain sorgt für Anwendung des definierten Styles selbst auf 
+% Seiten, auf denen Latex normalerweise nach plain umschaltet (z.B. erste Seite eines Kapitels).
+
+%der Parameter von z.B. \lhead in[] gibt das Aussehen für gerade der in {} für ungerade Seiten an
+%\lhead[\fancyplain{}{\scshape\thepage}]{\fancyplain{}{\nouppercase{\scshape\rightmark}}}
+%\chead[]{}
+%\rhead[\fancyplain{}{\nouppercase{\scshape\leftmark}}]{\fancyplain{}{\scshape\thepage}}
+
+\lhead[\fancyplain{}{\nouppercase{\scshape\leftmark}}]{}
+\chead[]{}
+\rhead[]{\fancyplain{}{\nouppercase{\scshape\rightmark}}}
+\lfoot[\fancyplain{}{\scshape\thepage}]{}
+\cfoot[]{}
+\rfoot[]{\fancyplain{}{\scshape\thepage}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Abkürzungsverzeichnis
+% http://my.opera.com/timomeinen/blog/show.dml/68644
+%
+\usepackage[english]{nomencl}
+% Deutsche Überschrift
+\renewcommand{\nomname}{Nomenclature and Symbols}
+% Punkte zw. Abkürzung und Erklärung
+\setlength{\nomlabelwidth}{.20\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+% Zeilenabstände verkleinern
+\setlength{\nomitemsep}{-0.05\parsep}
+\makenomenclature
+%
+% Verwenden durch \nomenclature{SMD}{surface mounted device}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Globaler Suchpfad für Bilder, so muss man nur den Dateinamen (ohne
+% Dateierweiterung) angeben.
+\graphicspath{{./images/}}  
+
+% Gliederung bis zur subsection ins Inhaltsverzeichnis aufnehmen
+\setcounter{tocdepth}{3}   
+% Nummerierung der Kapitel (1, 1.1, 1.1.1, ...) bis zu subsubsection 
+\setcounter{secnumdepth}{3}
+
+% In Unterschriften direkt ohne Einrücken nach dem Label weiterschreiben
+\setcapindent{0em}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Eigene Befehlsdefinitionen
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeindex
+
+
+\begin{document}
+\pdfbookmark[0]{Title Page}{Title Page}
+%\sloppy %nur aktivieren, wenn es anders nicht geht
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%       Titelseite und Erklärung
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtolength{\topmargin}{1cm}
+\pagestyle{empty}
+%
+% Typ der Arbeit
+% Hier anpassen: Bachelorarbeit/Masterarbeit
+\lfbbamatitle{Master's Thesis}                          
+             {Development of an Image Processing Algorithm}      % Englischer Titel
+             {Entwicklung und Implementierung eines Bildverarbeitungsalgorithmus}     % Deutscher Titel der Arbeit der Arbeit
+             {Junior Mustermann}                     % Name des Studenten
+             {Senior Mustermann, MSc}         		 % Betreuer
+             {2019}                                  % Jahr
+             {Aachen, January 16, 2019}         % Ort,Datum (Erklärung) -- Abgabedatum
+             {Schlüsselwörter, durch, Kommata, getrennt} % erscheinen später in den Eigenschaften des kompilierten Dokuments
+
+\addtolength{\topmargin}{-1cm}
+
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%       Kurzfassung 
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setcounter{page}{1}
+%\pagenumbering{roman}
+%%\setcounter{secnumdepth}{3} %steht doch auch schon im Header
+%%\input{kurzfassung}
+%\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%       Inhaltsverzeichnis
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+%\setcounter{page}{1}
+\pagestyle{plain}
+\pdfbookmark[0]{Table of Contents}{Table of Contents}
+\tableofcontents
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%       Abbildungsverzeichnis
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{empty}
+\listoffigures
+\addcontentsline {toc}{chapter}{List of Figures}
+\cleardoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+\pagestyle{fancy} %aktiviert eigenen Seitenstil
+
+%so wird erreicht, dass keine Punkte hinter der section und chapter-Nummer gemacht werden
+%Dies muss nach dem ersten Aufruf von \pagestyle{fancy} stehen
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{introduction}
+\cleardoublepage 
+
+\include{tables}
+\cleardoublepage 
+
+\include{formulas}
+\cleardoublepage 
+
+\include{conclusions}
+\cleardoublepage 
+
+\include{outlook}
+\cleardoublepage 
+
+% Anhang
+\begin{appendix}
+	\include{appendix}
+	\cleardoublepage
+\end{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    Abkürzungsverzeichnis
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+%\input{abkuerzungen}
+%\addcontentsline {toc}{chapter}{Abkürzungsverzeichnis}
+%\printnomenclature
+%"%bm".nlo -s nomencl.ist -o "%bm".nls
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%       Bibliographie
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\bibliographystyle{IEEEtran}
+%\bibliography{literatur}
+
+\clearpage
+
+\bibliographystyle{IEEEtran}
+% \addcontentsline {toc}{chapter}{Literaturverzeichnis}
+\pdfbookmark[0]{Bibliography}{Bibliography}
+\bibliography{literature}
+
+\end{document}

@@ -1,0 +1,73 @@
+#. motivation (problem statement):
+    *. extension of larvalign paper.
+        - what is done in larvalign paper? Few words.
+    *. problems in larvalin:
+        - vnc bend.
+        - doesn't propogate well on other datasets (give an example) : reason-too many parameters that is custom optimized to the dataset. Thus, it might or might not propogate well to data in other image domain for e.g. the parameter like voxel spacing.
+        - time (ANTs took 8hrs, Elastix took 7mins, Voxelmorph takes 2secs)
+
+#. datasets
+    - larvalign brain.
+    *. three datasets
+        - old_dataset - upon which larvalign was tuned.
+        - new_dataset
+        - Janelia dataset
+
+#. concepts
+    - we use voxelmorph network, which is an unsupervised method (finding ground truth deformation is difficult).
+        - synthetic deformations can be provided, but this might not replicate the deformations that might occur truly in the nature.
+    - the main motivation for choosing this network is this is proven to work and with the capability that auxiliary inforamtion can be inserted.
+        - in the form segmentation, in the form of landmarks.
+        - landmark points are referred to as gold standard in the realm of image registration and is what was used in larvalign paper and the measured accuracy was ...........
+
+#. Model architecture.
+    - explain voxelmorph
+    - the auxiliary information how it is fed and the regularization parameters.
+
+#. Results.
+    *. trained with mse loss.
+    *. trained with ncc loss.
+    *. trained with mi  loss.
+        - it is empirically found that mse loss seems to perform better than ncc or mi. Interestingly, ncc loss performed better in brain scans. And, mi loss was wahat was considered in larvalign paper.
+        - is performing well even on low stained samples (where larvalign fails).
+        - large amount of bend is a problem (this might not be a problem in vxm_org, because unlike the samples taken here the deformation in brain is not that large.)
+    
+    *.Qualitative analysis:
+        - visual results: old_dataset vs old_dataset
+                    - mse trained.
+                    - landmark trained.
+                : janelia vs old_dataset
+                    - mse trained.
+                    - landmark trained.
+                        - draw important observations, here.
+    *.Quantitatie analysis:
+        - LRE error.
+        - VI.
+        - TI.
+# challenges:
+    *. work on large scale images: - striding technique was implemented, however, the result is bad
+    *. large amount of bend is a problem (this might not be a problem in vxm_org, because unlike the samples taken here the deformation in brain is not that large.)
+
+#. Work to do.
+    *. prepare the framework to tabulate these results.
+    *. choose a proper mixture of training set so that the network learns all kinds of deformations.
+    *. data augmentation : flipping the image horizontally so that the network learns bend correction in both the directions.
+    *. work on large scale images: - striding technique was implemented, however, the result is bad.
+    *. to overcome oom, gradient accumulation was incorporated.
+
+
+
+
+large bend is still an issue, however, with landmarks: trained on larvalign_dataset_1.0 and testing on larvalign_dataset_1.0 (same as tuning the parameters specifically for this dataset in classical registration technique).
+
+Quantitative numbers for:
+	- larvalign_1.0 vs larvalign_2.0
+
+train on larvalign_dataset_1.0 mse:
+train on larvalign_dataset_1.0 mse + ldm:
+train on janelia_dataset mse:
+train on janelia_dataset mse + ldm:
+
+The whole training time is about 1,5 days, and since we are still at the stage to find out what works good, I haven't used the larvalign_dataset_2.0 data yet as part of training.
+
+Future work would be to find proper mix of these data so that the network becomes robust. As of now, it is obvious with the results, because the training set and the test set are not from the same distribution.

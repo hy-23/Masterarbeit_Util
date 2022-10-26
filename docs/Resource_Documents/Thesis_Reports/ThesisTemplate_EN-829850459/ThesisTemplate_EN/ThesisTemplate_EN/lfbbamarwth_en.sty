@@ -1,0 +1,94 @@
+\ProvidesPackage{lfbbamarwth}
+\RequirePackage{ifthen}
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+
+\pagenumbering{Roman}
+%
+% Titelseite und Erklärung
+%
+%\lfbbamatitle{Master/Bachelorarbeit}
+%             {Deutscher Titel}
+%             {Englischer Titel}
+%             {Name des Studenten}
+%             {Betreuer}
+%             {Jahr}
+%             {Ort,Datum} (Erklärung) -- Abgabedatum
+%             {Schlüsselwörter, durch, Kommata, getrennt}
+
+\usepackage[export]{adjustbox}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\lfbbamatitle}[8]{
+\begin{titlepage}
+	\begin{figure}[h]
+		\vspace{-2cm} \hspace{2.8cm} \includegraphics[right]{rwthlfb}
+	\end{figure}
+
+	\begin{center}
+		
+		{\bfseries
+			\begin{center}
+				\huge
+					\vspace{2cm}
+					#2\\
+			\end{center}
+            \vspace{1cm}
+            {\normalsize #3 \par}
+
+			\vspace{3cm}
+			{\Large #1}
+		}
+
+		\vspace{0.5cm}
+		{submitted by}\\
+		\vspace{0.5cm}
+		{\bfseries
+			{\Large #4}
+		}
+
+		\vfill
+		
+
+		Supervision:\\
+        \vspace{0.3cm}
+		#5\\
+
+		\vspace{0.5cm}
+
+		{\scshape
+            Junior Professorship for Biomedical Image Analysis \\
+            Jun.-Prof. Dr.-Ing. Johannes Stegmaier\\
+            RWTH Aachen University\\
+            #6\\
+        }
+
+
+	\end{center}
+\end{titlepage}
+
+\cleardoublepage
+\chapter*{}
+\thispagestyle{empty}
+
+\vspace*{13cm}
+
+\noindent I hereby declare in lieu of an oath that I have completed the present thesis entitled ``#2'' independently and without illegitimate assistance from third parties. I have used no other than the specified sources and aids. In case that the thesis is additionally submitted in an electronic format, I declare that the written and electronic versions are fully
+identical. The thesis has not been submitted to any examination body in this, or similar, form.
+
+\vspace{1.5cm}  
+\noindent #7
+
+
+
+\vspace*{2cm}
+\noindent #4%
+
+\hypersetup{
+  pdftitle={#2},
+  pdfauthor={#4},
+  pdfsubject={#1},
+  pdfkeywords={#8}
+}
+
+}
