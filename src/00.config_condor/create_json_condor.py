@@ -43,6 +43,11 @@ data_parameters = """
 
 
 # Writing to sample.json
-with open("Y:\\repo_condor\Masterarbeit\src\config_ldm.json", "w") as outfile:
-   outfile.write(data_file_path)
-   outfile.write(data_parameters)
+if spec.platform == 'nt':
+    with open("Y:\\repo\Masterarbeit_Util\src\00.config_condor\config_condor.json", "w") as outfile:
+        outfile.write(data_file_path)
+        outfile.write(data_parameters)
+elif spec.platform == 'posix':
+    with open("/home/students/yogeshappa/repo/Masterarbeit_Util/src/00.config_condor/config_condor.json", "w") as outfile:
+        outfile.write(data_file_path)
+        outfile.write(data_parameters)
