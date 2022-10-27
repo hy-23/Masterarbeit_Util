@@ -1,9 +1,9 @@
 {
-    "img_list": "I:\\00.masterarbeit_dataset\\curated_vscode.txt",
+    "img_list": "/work/scratch/yogeshappa/00.masterarbeit_dataset/06.condor/curated.txt",
     "val_list": "",
-    "atlas": "I:\\00.masterarbeit_dataset\\00.atlas\\np-scaled-channel\\npz\\np_atlas_scaled.npz",
-    "model_dir": "I:\\03.masterarbeit_out\\xxxxvscodexxxx",
-    "epochs": 40,
+    "atlas": "/work/scratch/yogeshappa/00.masterarbeit_dataset/00.atlas/np-scaled-channel/npz/np_atlas_scaled.npz",
+    "model_dir": "/work/scratch/yogeshappa/03.masterarbeit_out/xxxx_vanilla_condor_xxxxxx",
+    "epochs": 60,
     "steps_per_epoch": 290,
     "gpu": 0,
     "batch_size": 1,

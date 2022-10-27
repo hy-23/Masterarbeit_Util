@@ -20,10 +20,10 @@ elif spec.platform == 'posix':
     "img_list": "/work/scratch/yogeshappa/00.masterarbeit_dataset/06.condor/curated.txt",
     "val_list": "",
     "atlas": "/work/scratch/yogeshappa/00.masterarbeit_dataset/00.atlas/np-scaled-channel/npz/np_atlas_scaled.npz",
-    "model_dir": "/work/scratch/yogeshappa/03.masterarbeit_out/xxxxxxxxxx","""
+    "model_dir": "/work/scratch/yogeshappa/03.masterarbeit_out/xxxx_vanilla_condor_xxxxxx","""
 
 data_parameters = """
-    "epochs": 40,
+    "epochs": 60,
     "steps_per_epoch": 290,
     "gpu": 0,
     "batch_size": 1,
@@ -53,11 +53,11 @@ data_parameters = """
 
 # Writing to sample.json
 if spec.platform == 'nt':
-    with open("Y:\\repo\Masterarbeit_Util\src\\00.config_repo\config_repo.json", "w") as outfile:
+    with open("Y:\\repo_vanilla\Masterarbeit_Util\src\\00.config_vanilla\config_vanilla.json", "w") as outfile:
         outfile.write(data_file_path)
         outfile.write(data_parameters)
 elif spec.platform == 'posix':
-    with open("/home/students/yogeshappa/repo/Masterarbeit_Util/src/00.config_repo/config_repo.json", "w") as outfile:
+    with open("/home/students/yogeshappa/repo_vanilla/Masterarbeit_Util/src/00.config_vanilla/config_vanilla.json", "w") as outfile:
         outfile.write(data_file_path)
         outfile.write(data_parameters)
 
